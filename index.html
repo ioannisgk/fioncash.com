@@ -47,7 +47,7 @@
               <li class="current-menu-item"><a href="index.html">Invest With Us</a></li>
               <li><a href="our-processes.html">Our Processes</a></li>
 	      <li style="margin-right:20px;"><a href="our-advantages.html">Our Advantages</a></li>
-              <li><a href="#" class="login btn btn-outline btn-round" onclick="window.dialog.showModal();"><span class="bh"></span> <span>JOIN FOR FREE</span></a></li>
+              <li><a id="joinLink" href="#" class="login btn btn-outline btn-round"><span class="bh"></span> <span>JOIN FOR FREE</span></a></li>
             </ul>
           </nav>
       </div>
@@ -336,6 +336,28 @@
 		var profit = investmentAmount * Math.pow((1 + 0.05), investmentTime);
 		document.getElementById('profitAmount').value = "$" + profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 	  }
+    </script>
+    <script>
+        function isMobileDevice() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            var link = document.getElementById("joinLink");
+            if (isMobileDevice()) {
+                link.href = "instructions-mobile.html";
+                link.onclick = null;
+            } else {
+                link.href = "#";
+                link.onclick = function(event) {
+                    event.preventDefault();
+                    if (window.dialog) {
+                        window.dialog.showModal();
+                    } else {
+                        console.error("Dialog element not found.");
+                    }
+                };
+            }
+        });
     </script>
   </body>
 </html>
