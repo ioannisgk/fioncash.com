@@ -47,7 +47,7 @@
               <li><a href="index.html">Invest With Us</a></li>
               <li class="current-menu-item"><a href="our-processes.html">Our Processes</a></li>
 	      <li style="margin-right:20px;"><a href="our-advantages.html">Our Advantages</a></li>
-              <li><a href="#" class="login btn btn-outline btn-round" onclick="window.dialog.showModal();"><span class="bh"></span> <span>JOIN FOR FREE</span></a></li>
+              <li><a id="joinLink" href="#" class="login btn btn-outline btn-round"><span class="bh"></span> <span>JOIN FOR FREE</span></a></li>
             </ul>
           </nav>
       </div>
@@ -166,8 +166,8 @@
               <h2>Our Private Community</h2>
               <p>Ensure you have the mobile apps for your preferred crypto exchanges or wallets installed on your device. Once your funds are ready, join our private Telegram group to connect with our expert agents.</p>
               <p>Our agents will guide you through our tailored investment strategies, ensuring you make the best choices for your financial goals. With just a few taps on your phone, you can start investing securely and efficiently.</p>
-              <a href="#" class="btn btn-default icon-left" onclick="window.dialog.showModal();"><span class="bh"></span> <span><i class="fab fa-android"></i> Google play</span></a>
-              <a href="#" class="btn btn-default icon-left" onclick="window.dialog.showModal();"><span class="bh"></span> <span><i class="fab fa-apple"></i> App store</span></a>
+              <a id="joinLink" href="#" class="btn btn-default icon-left"><span class="bh"></span> <span><i class="fab fa-android"></i> Google play</span></a>
+              <a id="joinLink" href="#" class="btn btn-default icon-left"><span class="bh"></span> <span><i class="fab fa-apple"></i> App store</span></a>
             </div>
           </div>
         </div>
@@ -286,5 +286,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" ></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/106949/jquery.onscreen.js"></script>
     <script src="js/scripts.js"></script>
+	<script>
+        function isMobileDevice() {
+            return /Mobi|Android/i.test(navigator.userAgent);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            var link = document.getElementById("joinLink");
+            if (isMobileDevice()) {
+                link.href = "instructions-mobile.html";
+                link.onclick = null;
+            } else {
+                link.href = "#";
+                link.onclick = function(event) {
+                    event.preventDefault();
+                    if (window.dialog) {
+                        window.dialog.showModal();
+                    } else {
+                        console.error("Dialog element not found.");
+                    }
+                };
+            }
+        });
+    </script>
   </body>
 </html>
